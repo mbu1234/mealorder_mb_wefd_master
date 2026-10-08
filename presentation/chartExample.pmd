@@ -1,0 +1,170 @@
+{
+  "id": "chartExample",
+  "endPoints": [
+    {
+      "name": "getRestaurantOrders",
+      "baseUrlType": "WQL",
+      "url": "<%
+        const dataSource = `{{site.applicationId}}_restaurantOrders`;
+        const currentYear = date:now().format('YYYY');
+        const queryString = `SELECT count() as totalOrders, orderMonth, orderYear, restaurant FROM {{dataSource}} WHERE orderYear=\\'2024\\' ORDER BY orderMonth ASC`;
+        //const queryString = `SELECT count() as totalOrders, orderMonth, orderYear, restaurant FROM {{dataSource}} WHERE orderYear='{{currentYear}}' ORDER by orderMonth DESC`;
+        const url = '/data?query=' + string:pathEncode(queryString);
+
+        return url
+      %>",
+      "authType": "sso"
+    },
+    {
+      "name": "getRestaurantOrdersCurrentMonth",
+      "baseUrlType": "WQL",
+      "url": "<%
+        const dataSource = `{{site.applicationId}}_restaurantOrders`;
+        const currentMonth = date:now().format('MMM');
+        const currentYear = date:now().format('YYYY');
+        const queryString = `SELECT count() as totalOrders, orderMonth, orderYear, restaurant FROM {{dataSource}} WHERE orderMonth=\\'Nov\\' AND orderYear=\\'2024\\'`;
+        //const queryString = `SELECT count() as totalOrders, orderMonth, orderYear, restaurant FROM {{dataSource}} WHERE orderMonth=\\'{{currentMonth}}\\' AND orderYear=\\'{{currentYear}}\\'`;
+
+        const url = '/data?query=' + string:pathEncode(queryString);
+
+        return url
+      %>",
+      "authType": "sso"
+    }
+  ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "<% 'Restaurant Orders for  ' + date:now().format('yyyy') %>"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type" : "richText",
+          "value" : "<span style='color:red;font-size:10px'> Note: Hard coding the queries to show orders from 2024 currently ... </span> "
+        },
+        {
+          "type": "grid",
+          "id": "ordersGridWidget",
+          "label": "Restaurant Orders",
+          "rows": "<% getRestaurantOrders.data %>",
+          "rowVariableName": "order",
+          "columns": [
+            {
+              "type": "column",
+              "columnId": "restaurantNameCol",
+              "sortableAndFilterable": true,
+              "label": "Restaurant",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% order.restaurant.descriptor %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "orderMonthCol",
+              "sortableAndFilterable": true,
+              "label": "Order Month",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% order.orderMonth %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "totalOrdersCol",
+              "label": "Total Orders",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% order.totalOrders %>"
+              }
+            }
+          ]
+        },
+        {
+          "type": "stackedBarChart2",
+          "id": "restaurantOrderByRestaurantByMonthChart",
+          "data": "<% getRestaurantOrders.data %>",
+          "dataVariableName": "instance",
+          "barOrientation": "VERTICAL",
+          "measurementDataSets": [
+            {
+              "name": "Totals",
+              "value": "<% instance.totalOrders %>"
+            }
+          ],
+          "categoryDataSet": {
+            "name": "Order Month",
+            "value": "<% instance.orderMonth %>"
+          },
+          "secondaryCategory": {
+            "name": "Restaurant",
+            "value": "<% instance.restaurant.descriptor %>"
+          },
+          "measurementAxisOptions": {
+            "axisTitle": "Total Orders",
+            "axisIncrement": 1
+          },
+          "categoryAxisOptions": {
+            "axisTitle": "By Month"
+          }
+        },
+        {
+          "type": "stackedAreaChart2",
+          "id": "chart2",
+          "data": "<% getRestaurantOrders.data %>",
+          "dataVariableName": "instance",
+          "measurementDataSets": [
+            {
+              "name": "Totals",
+              "value": "<% instance.totalOrders %>"
+            }
+          ],
+          "categoryDataSet": {
+            "name": "Order Month",
+            "value": "<% instance.orderMonth %>"
+          },
+          "secondaryCategory": {
+            "name": "Restaurant",
+            "value": "<% instance.restaurant.descriptor %>"
+          },
+          "measurementAxisOptions": {
+            "axisTitle": "Total Orders",
+            "axisIncrement": 1
+          }
+        },
+        {
+          "type": "section",
+          "title": "Total Orders (current Month)",
+          "showPercentLabels": true,
+          "children": [
+            {
+              "type": "donutChart2",
+              "id": "donutExample1",
+              "data": "<% getRestaurantOrdersCurrentMonth.data %>",
+              "dataVariableName": "instance",
+              "sliceSizeDataSet": {
+                "name": "Totals",
+                "value": "<% instance.totalOrders %>"
+              },
+              "sliceColorDataSet": {
+                "name": "Restaurant",
+                "value": "<% instance.restaurant.descriptor %>"
+              },
+              "sliceDetailDataSet": {
+                "name": "Year",
+                "value": "<% instance.orderYear %>"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [ ]
+    }
+  }
+}

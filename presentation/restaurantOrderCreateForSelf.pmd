@@ -1,0 +1,113 @@
+{
+  "id": "restaurantOrderCreateForSelf",
+  "include": [
+    "customValidations.script"
+  ],
+  "endPoints": [
+    {
+      "name": "getCurrentUser",
+      "baseUrlType": "COMMON",
+      "url": "/workers/me",
+      "authType": "sso"
+    }
+
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "restaurantCreateVars",
+        "type": "outboundVariable",
+        "variableScope": "flow",
+        "values": [
+          {
+            "outboundPath": "restaurantId",
+            "value": "<% restaurantsWidget.value[0] %>"
+          },
+          {
+            "outboundPath": "createdBy",
+            "value": "<% getCurrentUser.id %>"
+          },
+          {
+            "outboundPath": "orderDetails",
+            "value": "<% orderDetailsWidget.value %>"
+          },
+          {
+            "outboundPath": "orderAddress",
+            "value": "<% orderAddressWidget.value %>"
+          },
+          {
+            "outboundPath": "deliveryDate",
+            "value": "<% deliveryDateWidget.value.format('yyyy-MM-dd') %>"
+          },
+          {
+            "outboundPath": "orderMonth",
+            "value": "<% monthDisplayWidget.value=deliveryDateWidget.value.format('MMM') %>"
+          },
+          {
+            "outboundPath": "orderYear",
+            "value": "<% yearDisplayWidget.value=deliveryDateWidget.value.format('YYYY') %>"
+          }
+        ]
+      },
+      {
+        "name": "postRestaurantOrder",
+        "baseUrlType": "BUSINESS-OBJECT",
+        "url": "/restaurantOrders",
+        "authType": "sso",
+        "httpMethod": "POST",
+        "onSend": "<%
+          {
+            'restaurant': {
+              'id' : restaurantsWidget.value[0]
+            },
+            'createdBy': {
+              'id': '3aa5550b7fe348b98d7b5741afc65534'
+            },
+            'orderDetails': orderDetailsWidget.value,
+            'orderAddress': orderAddressWidget.value,
+            'deliveryDate': deliveryDateWidget.value.format('yyyy-MM-dd'),
+            'orderMonth': monthDisplayWidget.value=deliveryDateWidget.value.format('MMM'),
+            'orderYear': yearDisplayWidget.value=deliveryDateWidget.value.format('YYYY')
+          }
+        %>",
+        "failOnStatusCodes": [
+          {
+            "code": 400
+          }
+        ]
+      }
+    ],
+    "responseErrorDetail": {
+      "errorSummary": "<% error %>",
+      "errors": "<% errors.map(item=>{item.error}) %>"
+    },
+    "_responseErrorDetail": {
+      "errorSummary": "My error",
+      "errors": "<% ['error 1', 'error 2'] %>"
+    }
+  },
+  "presentation": {
+    "pageType": "edit",
+    "title": {
+      "type": "title",
+      "label": "Create an Order"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "pod",
+          "podId": "restaurantOrder",
+          "parameters": {
+            "showWorkerSelect": "<% false %>"
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [ ]
+    }
+  }
+}

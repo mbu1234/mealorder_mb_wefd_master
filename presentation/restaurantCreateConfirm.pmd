@@ -1,0 +1,83 @@
+{
+  "id": "restaurantCreateConfirm",
+
+  "endPoints": [
+    {
+      "name": "getRestaurants",
+      "baseUrlType": "BUSINESS-OBJECT",
+      "url": "/restaurants",
+      "authType": "sso",
+      "isCollection": true
+    }
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "postRestaurant",
+        "baseUrlType": "BUSINESS-OBJECT",
+        "url": "/restaurants",
+        "authType": "sso",
+        "httpMethod": "POST",
+        "onSend": "<%
+          {
+            'name': flowVariables.restaurantName,
+            'type': flowVariables.restaurantType,
+            'active': flowVariables.restaurantActive
+          }
+        %>"
+      }
+    ]
+  },
+  "presentation": {
+    "pageType": "edit",
+    "title": {
+      "type": "title",
+      "label": "Please confirm the values entered below"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "text",
+          "label": "Name",
+          "id": "nameWidget",
+          "enabled": false,
+          "value": "<% empty flowVariables.restaurantName ? '' : flowVariables.restaurantName %>"
+        },
+        {
+          "type": "text",
+          "label": "Type",
+          "enabled": false,
+          "value": "<% flowVariables.restaurantType %>"
+        },
+        {
+          "type": "text",
+          "label": "Active",
+          "enabled": false,
+          "value": "<% flowVariables.restaurantActive == false ? 'no' : 'yes' %>"
+        },
+        {
+          "type": "pageActionButton",
+          "label": "Show List",
+          "onClick": "<% debugWidget.value = getRestaurants.data.map(restaurant => restaurant.name.lowerCase().trim() ); %>"
+        },
+        {
+          "type": "textArea",
+          "id": "debugWidget",
+          "label": "Debug"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}

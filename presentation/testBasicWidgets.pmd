@@ -1,0 +1,98 @@
+{
+  "id": "testBasicWidgets",
+  "endPoints": [ ],
+  "presentation": {
+    "pageType": "VIEW",
+    "title": {
+      "type": "title",
+      "label": "Basic Widgets"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "section",
+          "horizontal": true,
+          "columnWidthRatios": [
+            0.4,
+            0.3,
+            0.3
+          ],
+          "children": [
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "image",
+                  "imageUri": "https://upload.wikimedia.org/wikipedia/commons/0/06/Workday_Headquarters.jpg"
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "text",
+                  "label": "pmd scripting test ...",
+                  "value": "<% `The current date and time is {{date:now()}}` %>"
+                },
+                {
+                  "type": "text",
+                  "label": "Hello World!",
+                  "value": "This is my first text widget"
+                },
+                {
+                  "type": "richText",
+                  "label": "This is a richText widget",
+                  "value": "Use when you want to get <h1 style='color:green;'>really fancy</h1> with <i>italics</i>, <b>bolding</b>, <u>underline</u> <span style='color: red; font-size: 8px;'>(all kinds of fun stuff)</span>."
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "button",
+                  "label": "This is a primary button",
+                  "action": "PRIMARY",
+                  "taskReference": {
+                    "taskId": "restaurantCreate"
+                  }
+                },
+                {
+                  "type": "button",
+                  "label": "This is an auxiliary button",
+                  "action": "AUXILIARY",
+                  "taskReference": {
+                    "taskId": "restaurantCreate"
+                  }
+                },
+                {
+                  "type": "button",
+                  "label": "This is a link button widget",
+                  "action": "LINK",
+                  "taskReference": {
+                    "taskId": "restaurantCreate"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    },
+    "preferredLabelPosition": "atop",
+    "headerSize": "STANDARD"
+  }
+}

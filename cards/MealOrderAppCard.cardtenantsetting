@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "name": "MealOrderAppCard",
+  "label": "Meal Order App Card",
+  "securityDomains": [
+    "MealOrder"
+  ],
+  "routePath": "/MealOrderAppCard"
+}

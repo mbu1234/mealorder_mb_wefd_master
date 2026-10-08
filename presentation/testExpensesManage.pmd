@@ -1,0 +1,136 @@
+{
+  "id": "testExpensesManage",
+  "endPoints": [
+    {
+      "name": "expensesEntries",
+      "_baseUrlType": "BUSINESS-OBJECT",
+      "url": "https://api.workday.com/expense/v1/entries",
+      "authType": "sso",
+      "isCollection": true
+    }
+  ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "All Restaurants"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "richText",
+          "value": "<span style='color:red;font-size:12px'>Note: Only expenses with a status of 'New' can be edited.</span>"
+        },
+        {
+          "type": "grid",
+          "rows": "<% expensesEntries.data %>",
+          "rowVariableName": "expenseEntry",
+          "columns": [
+            {
+              "type": "column",
+              "columnId": "expenseEntryIdCol",
+              "label": "Expense ID",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% expenseEntry.id %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "expenseEntryDateCol",
+              "label": "Date",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% expenseEntry.date %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "expenseEntryMemoCol",
+              "label": "Type",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% expenseEntry.memo  %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "expenseEntryMerchantCol",
+              "label": "Merchant",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% expenseEntry.merchant ?? 'No merchant found' %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "expenseEntryMerchantCol",
+              "label": "Merchant",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% expenseEntry.merchant %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "expenseEntryAmtCol",
+              "label": "Amount (USD $)",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% expenseEntry.amount.value %>"
+              }
+            },
+            {
+              "sortableAndFilterable": true,
+              "type": "column",
+              "columnId": "expenseEntryStatusCol",
+              "label": "Status",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% expenseEntry.expenseEntryStatus.descriptor %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "restaurantActionsCol",
+              "label": "Actions",
+              "cellTemplate": {
+                "type": "section",
+                "children": [
+                  {
+                    "type": "button",
+                    "action": "AUXILIARY",
+                    "label": "View",
+                    "taskReference": {
+                      "taskId": "testExpenseView",
+                      "parameterBindings": {
+                        "expenseId": "<% expenseEntry.id %>"
+                      }
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "action": "AUXILIARY",
+                    "label": "Edit",
+                    "visible": "<% expenseEntry.expenseEntryStatus.descriptor == 'New' ? true : false  %>",
+                    "taskReference": {
+                      "taskId": "testExpenseEdit",
+                      "parameterBindings": {
+                        "expenseId": "<% expenseEntry.id %>"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": []
+    }
+  }
+}

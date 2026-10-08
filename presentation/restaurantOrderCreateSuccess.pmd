@@ -1,0 +1,28 @@
+{
+  "id": "restaurantOrderCreateSuccess",
+  "endPoints": [],
+  "presentation": {
+    "pageType": "confirm",
+    "title": {
+      "type": "title",
+      "label": "Order Created Successfully"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "text",
+          "label": "Thank you for your order",
+          "value": "It will be processed and on its way soon ...."
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        
+      ]
+    }
+  }
+}

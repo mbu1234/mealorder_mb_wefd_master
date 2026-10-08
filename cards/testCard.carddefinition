@@ -1,0 +1,25 @@
+{
+  "id": "testCard",
+  "presentation": {
+    "type": "inlineCard",
+    "header": {
+      "type": "cardHeader",
+      "title": "Meal Order",
+      "subtitle": "Meal Orders are on us",
+      "indicator": {},
+      "icon": "wd-accent-coffee"
+    },
+    "body": {
+      "type": "simpleCard",
+      "value": "Order a meal from one of our affliate restaurants and enjoy!"
+    },
+    "footer": [
+      {
+        "label": "Access the app",
+        "taskReference": {
+          "taskId": "restaurantCreate"
+        }
+      }
+    ]
+  }
+}

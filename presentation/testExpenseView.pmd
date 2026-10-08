@@ -1,0 +1,41 @@
+{
+  "id": "testExpenseView",
+  "endPoints": [
+    {
+      "name": "getExpenseEntry",
+      "url": "<% `https://api.workday.com/expense/v1/entries/{{queryParams.expenseId}}` %>",
+      "authType": "sso"
+    }
+  ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "<% `Date of Expense: {{getExpenseEntry.date}}` %>"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "text",
+          "label": "Memo",
+          "value": "<% getExpenseEntry.memo ?? 'No memo found' %>"
+        },
+        {
+          "type": "text",
+          "label": "Merchant",
+          "value": "<% getExpenseEntry.merchant ?? 'No merchant found' %>"
+        },
+        {
+          "type": "text",
+          "label": "Value (USD $)",
+          "value": "<% getExpenseEntry.amount.value %>"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [ ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "createRestaurantOrder",
+  "query": "mutation createRestaurantOrder($mealorder_mb_wefd_master_pgbbrx_createRestaurantOrder_input: Mealorder_mb_wefd_master_pgbbrx_RestaurantOrdersSummary_CreateInput!) {
+  mealorder_mb_wefd_master_pgbbrx_createRestaurantOrder(input: $mealorder_mb_wefd_master_pgbbrx_createRestaurantOrder_input) {
+    createdBy {
+      descriptor
+    }
+    deliveryDate
+    deliveryEndDate
+    descriptor
+    orderAddress
+    orderDetails
+    orderMonth
+    orderYear
+    restaurant {
+      descriptor
+    }
+    restaurantName
+    workdayID {
+      id
+      type
+    }
+  }
+}"
+}

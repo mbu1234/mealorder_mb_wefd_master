@@ -1,0 +1,25 @@
+{
+  "mappings": [
+    {
+      "location": {
+        "endPointName": "getWorkers",
+        "pmdId": "createRestaurantOrder"
+      },
+      "mockId": "getWorkers"
+    },
+    {
+      "location": {
+        "endPointName": "getRestaurants_2",
+        "pmdId": "createRestaurantOrder"
+      },
+      "mockId": "getRestaurants_2"
+    },
+    {
+      "location": {
+        "endPointName": "createRestaurantOrder",
+        "pmdId": "createRestaurantOrder"
+      },
+      "mockId": "createRestaurantOrder"
+    }
+  ]
+}

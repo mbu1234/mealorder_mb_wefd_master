@@ -1,0 +1,157 @@
+{
+  "id": "calendarExample",
+  "onLoad": "<%
+    pageVariables.calendarStartDate = date:now().plusMonths(-5);
+  %>",
+  "endPoints": [
+    {
+      "name": "getRestaurantOrders",
+      "baseUrlType": "WQL",
+      "url": "<%
+        const dataSource = `{{site.applicationId}}_restaurantOrders`;
+        const queryString = `SELECT workdayID, createdBy, orderDetails, orderAddress, deliveryDate, deliveryEndDate, restaurant{name, type, workdayID} as restaurant FROM {{dataSource}}`;
+        const url = `/data?query={{string:pathEncode(queryString)}}`;
+        url;
+       %>",
+      "authType": "sso",
+      "isCollection": true
+    }
+  ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "Restaurant Orders"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "multiSelectCalendar",
+          "calendarStartDate": "<% pageVariables.calendarStartDate %>",
+          "eventData": {
+            "on": "<% getRestaurantOrders.data %>",
+            "as": "restaurantOrder",
+            "template": {
+              "startDate": "<% date:parse(restaurantOrder.deliveryDate) %>",
+              "endDate": "<% date:parse(restaurantOrder.deliveryEndDate) %>",
+              "title": "<% restaurantOrder.createdBy.descriptor %>",
+              "editTask": {
+                "task": {
+                  "taskId": "restaurantOrderEdit",
+                  "parameters": {
+                    "id": "<% restaurantOrder.workdayID %>",
+                    "startDate": "<% restaurantOrder.deliveryDate %>",
+                    "endDate": "<% restaurantOrder.deliveryEndDate %>",
+                    "createdBy": "<% restaurantOrder.createdBy.descriptor %>",
+                    "orderDetails": "<% restaurantOrder.orderDetails %>",
+                    "orderAddress": "<% restaurantOrder.orderAddress %>"
+                  }
+                }
+              },
+              "style": "APPROVED"
+            }
+          },
+          "sidebar": {
+            "task": {
+              "taskId": "currentUserView",
+              "parameters": {
+                "id": "<% queryParams.workdayID %>",
+                "startDate": "<% queryParams.deliveryDate %>",
+                "endDate": "<% queryParams.deliveryEndDate %>"
+              }
+            },
+            "position": "left",
+            "render": true
+          },
+          "label": "Test"
+        },
+        {
+          "type": "grid",
+          "rows": "<% list:sort(getRestaurantOrders.data, 'restaurant.name', true) %>",
+          "rowVariableName": "restaurantOrder",
+          "columns": [
+            {
+              "type": "column",
+              "columnId": "createdByCol",
+              "label": "Name",
+              "cellTemplate": {
+                "type": "instanceList",
+                "instanceList": [
+                  {
+                    "wid": "<% restaurantOrder.createdBy.id %>",
+                    "descriptor": "<% restaurantOrder.createdBy.descriptor %>"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "orderWIDCol",
+              "label": "Order WID",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% restaurantOrder.workdayID %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "orderDetailsCol",
+              "label": "Order Details",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% restaurantOrder.orderDetails %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "orderAddressCol",
+              "label": "Order Address",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% restaurantOrder.orderAddress %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "deliveryDateCol",
+              "label": "Delivery Date",
+              "cellTemplate": {
+                "type": "date",
+                "value": "<% restaurantOrder.deliveryDate %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "deliveryEndDateCol",
+              "label": "Delivery End Date",
+              "cellTemplate": {
+                "type": "date",
+                "value": "<% restaurantOrder.deliveryEndDate %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "restaurantCol",
+              "label": "restaurant",
+              "cellTemplate": {
+                "type": "instanceList",
+                "view": false,
+                "instanceList": [
+                  {
+                    "wid": "<% restaurantOrder.restaurant.workdayID %>",
+                    "descriptor": "<% restaurantOrder.restaurant.name %>"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": []
+    }
+  }
+}

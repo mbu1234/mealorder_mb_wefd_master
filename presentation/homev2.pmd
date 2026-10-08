@@ -1,0 +1,81 @@
+{
+  "id": "homev2",
+  "endPoints": [],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "Workday Extend"
+    },
+    "body": {
+      "type": "hub",
+      "label": "Quick Links",
+      "icon": "wd-accent-coffee",
+      "initialTask": {
+        "taskId": "restaurantManage"
+      },
+      "navigationTasks": [
+        {
+          "type": "item",
+          "icon": "wd-accent-checkmarked-page",
+          "label": "Place an Order",
+          "task": {
+            "taskId": "restaurantOrderCreateFromHub"
+          }
+        },
+        {
+          "type": "item",
+          "icon": "wd-accent-checkmarked-page",
+          "label": "View Restaurants",
+          "task": {
+            "taskId": "restaurantManage"
+          }
+        },
+        {
+          "type": "item",
+          "icon": "wd-accent-checkmarked-page",
+          "label": "View Orders",
+          "task": {
+            "taskId": "restaurantOrderManage"
+          }
+        },
+        {
+          "type": "item",
+          "icon": "wd-accent-checkmarked-page",
+          "label": "Restaurant of the Month",
+          "task": {
+            "taskId": "restaurantOfTheMonth"
+          }
+        },
+        {
+          "type": "item",
+          "icon": "wd-accent-checkmarked-page",
+          "label": "Create a Restaurant (Office use)",
+          "task": {
+            "taskId": "restaurantCreateFromHub"
+          }
+        }
+      ],
+      "additionalLinks": {
+        "title": "Additional Links",
+        "links": [
+          {
+            "type": "external",
+            "label":"World's best restaurants",
+            "url":"https://www.theworlds50best.com/list/1-50"
+          },
+          {
+            "type": "external",
+            "label": "Developer Forum",
+            "url": "https://forum.developer.workday.com/"
+          }
+        ]
+      }  
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        
+      ]
+    }
+  }
+}

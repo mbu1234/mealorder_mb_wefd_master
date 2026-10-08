@@ -1,0 +1,140 @@
+{
+  "podId": "restaurantOrder",
+  "seed": {
+    "endPoints": [
+      {
+        "name": "getWorkers",
+        "baseUrlType": "COMMON",
+        "url": "/workers",
+        "authType": "sso",
+        "exclude": "<% !@@showWorkerSelect %>"
+      },
+      {
+        "name": "getWorkersSearch",
+        "baseUrlType": "COMMON",
+        "url": "<% '/workers?search=' + instanceListQuery %>",
+        "authType": "sso",
+        "exclude": "<% empty instanceListQuery %>",
+        "deferred": true
+      },
+      {
+        "name": "getWorkerNameForOrder",
+        "baseUrlType": "COMMON",
+        "url": "<% !empty flowVariables.createdBy ? '/workers/'+flowVariables.createdBy : '/workers' %>",
+        "authType": "sso"
+      },
+      {
+        "name": "getRestaurants",
+        "baseUrlType": "BUSINESS-OBJECT",
+        "url": "/restaurants",
+        "authType": "sso",
+        "isCollection": true
+      }
+    ],
+    "parameters": [
+      "showWorkerSelect"
+    ],
+    "template": {
+      "type": "section",
+      "children": [
+        {
+          "type": "text",
+          "id": "workersTextWidget",
+          "render": "<% @@showWorkerSelect@@ %>",
+          "visible": "<% !empty flowVariables.createdBy ? true : false %>",
+          "label": "Order Created For ...",
+          "value": "<% getWorkerNameForOrder.descriptor %>",
+          "enabled": "false"
+        },
+        {
+          "type": "section",
+          "id": "workersInstanceListWidgetSection",
+          "visible": "<% empty flowVariables.createdBy ? true : false %>",
+          "children": [
+            {
+              "type": "instanceList",
+              "id": "workersWidget",
+              "label": "Who is this order for?",
+              "values": "<% getWorkers.data %>",
+              "searchEndPoint": "<% getWorkersSearch %>",
+              "searchResultValues": "<% getWorkersSearch.data %>",
+              "onChange": "<% workersTextWidget.value = self.value[0] %>"
+            }
+          ]
+        },
+        {
+          "type": "instanceList",
+          "id": "restaurantsWidget",
+          "required": true,
+          "label": "Restaurants",
+          "_selectedValues": "<% ['a1b577600f319005355212106efc0000'] %>",
+          "selectedValues": "<% list:toList(flowVariables.restaurantId) %>",
+          "values": "<% getRestaurants.data
+                        .filter(restaurant => restaurant.active == true)
+                        .map(restaurant=>(
+                          {
+                            'id': restaurant.id,
+                            'descriptor': `{{restaurant.name}} ({{restaurant.type}})`
+                          }                         
+                          ));
+                          
+                         %>"
+        },
+        {
+          "type": "textArea",
+          "id": "orderDetailsWidget",
+          "label": "OrderDetails",
+          "value": "<% flowVariables.orderDetails %>",
+          "onChange": "<%
+            if (customValidations.isOverMaxChar(self.value)) {
+              self.setError('Over Max characters')
+            } else {
+              self.clearError();
+            }
+          %>"
+        },
+        {
+          "type": "textArea",
+          "id": "orderAddressWidget",
+          "label": "Order Address",
+          "value": "<% flowVariables.orderAddress %>"
+        },
+        {
+          "type": "date",
+          "label": "Delivery Date",
+          "id": "deliveryDateWidget",
+          "onChange": "<%
+
+            if (!customValidations.isTodayOrFutureDate(self.value)) {
+              self.setError('Delivery date cannot be in the past.');
+
+            } else if (!customValidations.isWeekday(self.value)) {
+              self.setError('Delivery date must be a weekday.');
+
+            } else if (!customValidations.isUnderFourteenDays(self.value)) {
+              self.setError('Delivery date must be within 14 days from today')
+
+            } else {
+              self.clearError();
+              monthDisplayWidget.value=self.value.format('MMM');
+              yearDisplayWidget.value=self.value.format('YYYY');
+            }
+
+
+          %>",
+          "datePrecision": "DAY"
+        },
+        {
+          "type": "text",
+          "id": "monthDisplayWidget",
+          "label": "Order Month"
+        },
+        {
+          "type": "text",
+          "id": "yearDisplayWidget",
+          "label": "Order Year"
+        }
+      ]
+    }
+  }
+}

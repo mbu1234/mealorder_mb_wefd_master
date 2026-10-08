@@ -1,0 +1,33 @@
+{
+  "id": "restaurantCreateFromHub",
+  "endPoints": [],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "Upload Restaurant Menu"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "button",
+          "action": "PRIMARY",
+          "label": "Click here to begin ...",
+          "taskReference": {
+            "taskId": "restaurantOrderCreate"
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "pod",
+          "podId": "mainMenuLink"
+        }
+      ]
+    }
+  }
+}

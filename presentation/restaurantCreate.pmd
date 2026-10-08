@@ -1,0 +1,130 @@
+{
+  "id": "restaurantCreate",
+  "endPoints": [],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "restaurantCreateVars",
+        "type": "outboundVariable",
+        "variableScope": "flow",
+        "values": [
+          {
+            "outboundPath": "restaurantName",
+            "value": "<% nameWidget.value.trim() %>"
+          },
+          {
+            "outboundPath": "restaurantType",
+            "value": "<% typeWidget.value.trim() %>"
+          },
+          {
+            "outboundPath": "restaurantActive",
+            "value": "<% activeWidget.value %>"
+          }
+        ]
+      }
+    ]
+  },
+  "presentation": {
+    "pageType": "edit",
+    "title": {
+      "type": "title",
+      "label": "Create a Restaurant"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "text",
+          "enabled": false,
+          "label": "Instructions",
+          "value": "Use this form to register a new restaurant.
+          \r Include the restaurant's name and the type of cuisine they serve. 
+          \r If the restaurant is currently accepting orders, select the Active checkbox."
+        },
+        {
+          "type": "text",
+          "required": true,
+          "id": "nameWidget",
+          "label": "Name",
+          "value": "<% flowVariables.restaurantName ?? '' %>"
+        },
+        {
+          "type": "text",
+          "id": "typeWidget",
+          "label": "Type",
+          "value": "<% flowVariables.restaurantType ?? '' %>"
+        },
+        {
+          "type": "checkBox",
+          "id": "activeWidget",
+          "label": "Active",
+          "value": "<% flowVariables.restaurantActive ?? '' %>"
+        },
+        {
+          "type": "dropdown",
+          "id": "newLabel",
+          "label": "Select a new label for Action Button:",
+          "instanceList": [
+            {
+              "id": "label1",
+              "descriptor": "Label 1"
+            },
+            {
+              "id": "label2",
+              "descriptor": "Label 2"
+            }
+          ],
+          "onChange": "<%
+        dynamicButtonLabel.data = self.selectedEntries[0].descriptor ?? 'Action Button';  
+      %>"
+        },
+        {
+          "type": "dynamicSection",
+          "id": "dynamicButtonLabel",
+          "data": "<% '' %>",
+          "dataVariableName": "buttonLabel",
+          "children": [
+            {
+              "type": "pageActionButton",
+              "id": "dynamicButton",
+              "label": "<% buttonLabel ?: 'Action Button' %>",
+              "onClick": "<%  %>"
+            }
+          ]
+        },
+        {
+          "type": "editButtonBar",
+          "editButtons": [
+            {
+              "type": "editButton",
+              "label": "Let us go",
+              "id": "1",
+              "buttonType": "PRIMARY",
+              "ignoreRequiredFields": "true"
+            },
+            {
+              "type": "editButton",
+              "label": "Add related data",
+              "id": "2",
+              "buttonType": "AUXILIARY"
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}

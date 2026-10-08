@@ -1,0 +1,77 @@
+{
+  "id": "home",
+  "endPoints": [ ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "Meal Order"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "button",
+          "action": "PRIMARY",
+          "label": "Create a Restaurant",
+          "taskReference": {
+            "taskId": "restaurantCreate"
+          }
+        },
+        {
+          "type": "button",
+          "action": "PRIMARY",
+          "label": "View Restaurants",
+          "taskReference": {
+            "taskId": "restaurantManage"
+          }
+        },
+        {
+          "type": "button",
+          "action": "PRIMARY",
+          "label": "Place an Order",
+          "taskReference": {
+            "taskId": "restaurantOrderCreate"
+          }
+        },
+        {
+          "type": "button",
+          "action": "PRIMARY",
+          "label": "View Orders",
+          "taskReference": {
+            "taskId": "restaurantOrderManage"
+          }
+        },
+        {
+          "type": "button",
+          "action": "PRIMARY",
+          "label": "Restaurant Of The Month",
+          "taskReference": {
+            "taskId": "restaurantOfTheMonth"
+          }
+        },
+        {
+          "action": "PRIMARY",
+          "type": "button",
+          "label": "Order a meal",
+          "taskReference": {
+            "taskId": "restaurantOrderCreate"
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "button",
+          "action": "LINK",
+          "label": "Alternate Layout",
+          "taskReference": {
+            "taskId": "homev2"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "getRestaurants_2",
+  "responseCode": 200,
+  "responseBody": {
+    "data": {
+      "restaurants": {
+        "total": 1,
+        "data": [
+          {
+            "workdayID": {
+              "id": "id-f64aca61-2f37-4b0f-8277-8808e14e2355"
+            },
+            "descriptor": "descriptor-3bf8ab09-2f9e-4a6f-b023-ac59871dd853"
+          },
+          {
+            "workdayID": {
+              "id": "id-d912ff71-9f72-46b3-a696-fdec0ef22ddd"
+            },
+            "descriptor": "descriptor-e1359ece-0864-4284-8601-04f8bd39e302"
+          }
+        ]
+      }
+    }
+  }
+}

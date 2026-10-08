@@ -1,0 +1,15 @@
+{
+  "podId": "mainMenuLink",
+  "seed": {
+    "template": {
+      "type": "button",
+      "label": "Back to Main Menu",
+      "taskReference": {
+        "type": "taskReference",
+        "taskId": "home"
+      },
+      "action": "LINK",
+      "commandHttpMethod": "GET"
+    }
+  }
+}

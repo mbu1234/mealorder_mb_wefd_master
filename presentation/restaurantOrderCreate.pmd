@@ -1,0 +1,63 @@
+{
+  "id": "restaurantOrderCreate",
+  "endPoints": [ ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "restaurantOrderVars",
+        "type": "outboundVariable",
+        "variableScope": "flow",
+        "values": [
+          {
+            "outboundPath": "restaurantOrderType",
+            "value": "<% !empty thisOrderIsForWidget.value ? thisOrderIsForWidget.selectedEntries[0].id : null %>"
+          }
+        ]
+      }
+    ],
+    "responseErrorDetail": {
+      "errorSummary": "<% error %>",
+      "errors": "<% errors.map(item => { item.error }) %>"
+    }
+  },
+  "presentation": {
+    "pageType": "edit",
+    "title": {
+      "type": "title",
+      "label": "Create an Order"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "radioGroup",
+          "id": "thisOrderIsForWidget",
+          "label": "This order is for",
+          "hideDisplayOption": "true",
+          "selectedValues": "<% ['me'] %>",
+          "instanceList": [
+            {
+              "id": "me",
+              "descriptor": "Me"
+            },
+            {
+              "id": "someoneElse",
+              "descriptor": "Someone Else"
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}

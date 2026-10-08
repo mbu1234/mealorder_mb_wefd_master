@@ -1,0 +1,100 @@
+{
+  "id": "testScripts",
+  "include": ["customValidations.script"],
+  "endPoints": [],
+  "presentation": {
+    "pageType": "edit",
+    "title": {
+      "type": "title",
+      "label": "Workday Extend"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "textArea",
+          "enabled": false,
+          "id": "orderDetailsWidget",
+          "label": "Order Details",
+          "value": "1 pizza, 3 lemonades"
+        },
+        {
+          "type": "text",
+          "enabled": false,
+          "label": "Over Max Character Limit?",
+          "value": "<%
+            customValidations.isOverMaxChar(orderDetailsWidget.value)
+          %>"
+        },
+        {
+          "type": "textArea",
+          "enabled": false,
+          "id": "loremIpsumWidget",
+          "label": "Lorem Ipsum",
+          "value": "<% 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+            + 'Suspendisse id eros dignissim, eleifend elit vel, bibendum metus. '
+            + 'Aenean condimentum non lorem sed semper. Fusce eget leo lacus. '
+            + 'Vivamus venenatis sagittis euismod. Nam vitae orci metus. '
+          %>"
+        },
+        {
+          "type": "text",
+          "enabled": false,
+          "label": "Over Max Character Limit?",
+          "value": "<%
+            customValidations.isOverMaxChar(loremIpsumWidget.value)
+          %>"
+        },
+        {
+          "type": "grid",
+          "enabled": false,
+          "label": "Dates",
+          "rows": "<% ['2024-03-31', '2024-05-25', '2024-06-24'] %>",
+          "rowVariableName": "dateString",
+          "columns": [
+            {
+              "type": "column",
+              "columnId": "dateCol",
+              "label": "Date",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% dateString %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "dayOfWeekCol",
+              "label": "Day of the Week",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% date:parse(dateString).format('E') %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "isWeekdayCol",
+              "label": "Is Weekday?",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<%
+                  customValidations.isWeekday(date:parse(dateString))
+                %>"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}

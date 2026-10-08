@@ -1,0 +1,12 @@
+{
+  "id": "getRestaurants_2",
+  "query": "query getRestaurants {
+    restaurants: mealorder_mb_wefd_master_pgbbrx_Restaurant(dataSource: { mealorder_mb_wefd_master_pgbbrx_restaurants: {} }, limit: 100, offset: 0) {
+        total
+        data {
+            workdayID { id }
+            descriptor
+        }
+    }
+}"
+}

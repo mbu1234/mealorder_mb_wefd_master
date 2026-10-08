@@ -1,0 +1,15 @@
+{
+  "id": "updateRestaurant",
+  "query": "mutation updateRestaurant($mealorder_mb_wefd_master_pgbbrx_updateRestaurant_input: Mealorder_mb_wefd_master_pgbbrx_RestaurantsSummary_UpdateInput!, $mealorder_mb_wefd_master_pgbbrx_updateRestaurant_restaurantsId: IdentifierInput!) {
+  mealorder_mb_wefd_master_pgbbrx_updateRestaurant(input: $mealorder_mb_wefd_master_pgbbrx_updateRestaurant_input, restaurantsId: $mealorder_mb_wefd_master_pgbbrx_updateRestaurant_restaurantsId) {
+    active
+    descriptor
+    name
+    type
+    workdayID {
+      id
+      type
+    }
+  }
+}"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "currentUserView",
+  "_generationNote": "This page displays information about the currently logged in user.",
+  "endPoints": [
+    {
+      "name": "getCurrentUser",
+      "baseUrlType": "COMMON",
+      "url": "/workers/me",
+      "authType": "sso"
+    }
+  ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "id": "title",
+      "label": "<% getCurrentUser.descriptor %>"
+    },
+    "body": {
+      "type": "section",
+      "id": "bodySection",
+      "children": [
+        {
+          "type": "text",
+          "label": "Logged in user",
+          "value": "<% getCurrentUser.descriptor %>"
+        },
+        {
+          "type": "text",
+          "label": "Email",
+          "value": "<% getCurrentUser.primaryWorkEmail %>"
+        },
+        {
+          "type": "text",
+          "label": "Location",
+          "value": "<% getCurrentUser.location.descriptor %>"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "id": "footer",
+      "children": [ ]
+    }
+  }
+}

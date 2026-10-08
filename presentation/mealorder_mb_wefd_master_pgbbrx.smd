@@ -1,0 +1,20 @@
+{
+  "id": "mealorder_mb_wefd_master_pgbbrx",
+  "applicationId": "mealorder_mb_wefd_master_pgbbrx",
+  "siteId": "mealorder_mb_wefd_master_pgbbrx",
+  "languages": [
+    {
+      "code": "en-US",
+      "description": "English (United States)"
+    }
+  ],
+  "siteAuth": {
+    "authTypes": [
+      {
+        "scheme": "SSO",
+        "id": "sso"
+      }
+    ]
+  },
+  "headerBackgroundColor": "#0875e1"
+}

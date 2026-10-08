@@ -1,0 +1,71 @@
+{
+  "id": "restaurantOrderEdit",
+  "_generationNote": "This page updates a single instance of the RestaurantOrder business object.",
+  "endPoints": [ ],
+  "presentation": {
+    "micro": true,
+    "pageType": "edit",
+    "title": {
+      "type": "title",
+      "id": "title",
+      "label": "<% queryParams.createdBy %>"
+    },
+    "body": {
+      "type": "section",
+      "id": "bodySection",
+      "children": [
+        {
+          "type": "textArea",
+          "id": "orderDetailsWidget",
+          "label": "Order Details",
+          "value": "<% queryParams.orderDetails %>"
+        },
+        {
+          "type": "text",
+          "id": "orderAddressWidget",
+          "label": "Order Address",
+          "value": "<% queryParams.orderAddress %>"
+        },
+        {
+          "type": "date",
+          "id": "startDateWidget",
+          "label": "Delivery Date",
+          "value": "<% queryParams.startDate %>"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "id": "footer",
+      "children": [
+        
+      ]
+    }
+  },
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "_generationNote": "Updates a single instance, as specified by 'queryParams.instanceId', of the RestaurantOrder business object resource.",
+        "name": "updateRestaurantOrder",
+        "url": "<% `https://api.workday.com/apps/{{site.applicationId}}/v1/restaurantOrders/{{queryParams.instanceId}}` %>",
+        "authType": "sso",
+        "httpMethod": "PUT",
+        "failOnStatusCodes": [
+          {
+            "code": 400
+          },
+          {
+            "code": 403
+          }
+        ]
+      }
+    ],
+    "responseErrorDetail": {
+      "_generationNote": "This responseErrorDetail works with the Workday API error structure.",
+      "_generationNote2": "If there is only a single error, the errorSummary will be shown.",
+      "errorSummary": "<% error %>",
+      "_generationNote3": "For multiple errors, append the top-level error to provide context.",
+      "errors": "<% empty errors ? [] : [error].join(errors.map(err => { err.error } )) %>"
+    }
+  }
+}

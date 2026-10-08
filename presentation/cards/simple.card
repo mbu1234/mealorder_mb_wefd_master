@@ -1,0 +1,25 @@
+{
+  "id": "simple",
+  "parameters": ["title", "subtitle", "icon", "indicatorLabel", "indicatorColor", "body"],
+  "header": {
+    "title": "<% title %>",
+    "subtitle": "<% subtitle %>",
+    "icon": "<% icon %>",
+    "indicator": {
+      "label": "<% indicatorLabel %>",
+      "color": "<% indicatorColor %>"
+    }
+  },
+  "body": {
+    "type": "simpleCard",
+    "value": "<% body %>"
+  },
+  "footer": [
+    {
+      "label": "Main Menu",
+      "taskReference": {
+        "taskId": "home"
+      }
+    }
+  ]
+}

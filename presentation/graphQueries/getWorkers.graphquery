@@ -1,0 +1,12 @@
+{
+  "id": "getWorkers",
+  "query": "query getWorkers {
+    worker(dataSource: { indexedAllWorkers: { filter: { indexedAllWorkersFilter: {} }}}, limit: 100, offset: 0) {
+        total
+        data {
+            workdayID { id }
+            descriptor
+        }
+    }
+}"
+}

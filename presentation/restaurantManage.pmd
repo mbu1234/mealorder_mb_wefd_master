@@ -1,0 +1,126 @@
+{
+  "id": "restaurantManage",
+  "endPoints": [
+    {
+      "name": "getRestaurants",
+      "baseUrlType": "BUSINESS-OBJECT",
+      "url": "/restaurants",
+      "authType": "sso",
+      "isCollection": true
+    }
+  ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "All Restaurants"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "grid",
+          "rows": "<% getRestaurants.data %>",
+          "rowVariableName": "restaurant",
+          "columns": [
+            {
+              "type": "column",
+              "columnId": "restaurantIdCol",
+              "label": "Workday ID",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% restaurant.id %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "restaurantNameCol",
+              "label": "Name",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% restaurant.name %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "restaurantTypeCol",
+              "label": "Type",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% restaurant.type %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "restaurantActiveCol",
+              "label": "Active",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% restaurant.active %>"
+              }
+            },
+            {
+              "type": "column",
+              "id": "restaurantActionsCol",
+              "label": "Actions",
+              "cellTemplate": {
+                "type": "section",
+                "children": [
+                  {
+                    "type": "button",
+                    "action": "AUXILIARY",
+                    "label": "View (queryParams)",
+                    "taskReference": {
+                      "taskId": "restaurantView",
+                      "parameterBindings": {
+                        "restaurantId": "<% restaurant.id %>"
+                      }
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "action": "AUXILIARY",
+                    "label": "View (routeParams)",
+                    "taskReference": {
+                      "taskId": "restaurantViewRouteParams",
+                      "parameterBindings": {
+                        "restaurantId": "<% restaurant.id %>"
+                      }
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "action": "AUXILIARY",
+                    "label": "Edit",
+                    "taskReference": {
+                      "taskId": "restaurantEdit",
+                      "parameterBindings": {
+                        "restaurantId": "<% restaurant.id %>"
+                      }
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "action": "AUXILIARY",
+                    "label": "Delete",
+                    "taskReference": {
+                      "taskId": "restaurantDelete",
+                      "parameterBindings": {
+                        "restaurantId": "<% restaurant.id %>",
+                        "restaurantName": "<% restaurant.name.urlEncode() %>"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [ ]
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "restaurantOfTheMonth",
+  "endPoints": [
+    {
+      "name": "getRestaurant",
+      "baseUrlType": "BUSINESS-OBJECT",
+      "url": "<% `/restaurants/{{attrstore.restaurantOfTheMonthWID}}` %>",
+      "authType": "sso"
+    }
+  ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "<% getRestaurant.name %>"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "cardContainer",
+          "cards": [
+            {
+              "type": "card",
+              "cardId": "simple",
+              "parameters": "<% 
+                  {
+                      'title': 'Restaurant of the Month',
+                      'subtitle': getRestaurant.name,
+                      'icon': 'wd-accent-trophy',
+                      'indicatorLabel': 'Success',
+                      'indicatorColor': 'Green',
+                      'body': attrstore.restaurantOfTheMonthDescription
+                  }
+              %>"
+            }
+          ]
+        },
+        {
+          "type": "video",
+          "mediaId": "3cef68364c3101781a0445a172123100"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": []
+    }
+  }
+}

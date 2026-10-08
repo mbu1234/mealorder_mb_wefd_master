@@ -1,0 +1,54 @@
+{
+  "id": "testEvents",
+  "include":["customValidations.script"],
+  "endPoints": [],
+  "presentation": {
+    "pageType": "edit",
+    "title": {
+      "type": "title",
+      "label": "Workday Extend"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "textArea",
+          "id": "orderDetailsWidget",
+          "label": "Order Details",
+          "onChange": "<%
+            isOverMaxCharWidget.value = customValidations.isOverMaxChar(self.value);
+          %>"
+        },
+        {
+          "type": "text",
+          "enabled": false,
+          "id": "isOverMaxCharWidget",
+          "label": "Over Max Character Limit?"
+        },
+        {
+          "type": "date",
+          "id": "deliveryDateWidget",
+          "label": "Delivery Date",
+          "onChange": "<% isWeekdayWidget.value = customValidations.isWeekday(self.value) %>"
+        },
+        {
+          "type": "text",
+          "enabled": false,
+          "id": "isWeekdayWidget",
+          "label": "Is Weekday?"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}

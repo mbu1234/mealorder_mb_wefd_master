@@ -1,0 +1,94 @@
+{
+  "id": "createRestaurantTBD",
+  "_generationNote": "This page creates a single instance of the Restaurant object. You can use this page as a starting template for building an end-user page, or used as an administration page to create new instances.",
+  "endPoints": [],
+  "securityDomains": [],
+  "script": "",
+  "presentation": {
+    "pageType": "edit",
+    "title": {
+      "type": "title",
+      "id": "title",
+      "label": "Create Restaurant"
+    },
+    "body": {
+      "type": "section",
+      "id": "bodySection",
+      "children": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "valuesOut": [
+            {
+              "value": "<% self.value %>",
+              "valueOutBinding": "createRestaurant.name"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "type",
+          "label": "Type",
+          "valuesOut": [
+            {
+              "value": "<% self.value %>",
+              "valueOutBinding": "createRestaurant.type"
+            }
+          ]
+        },
+        {
+          "type": "checkBox",
+          "trueLabel": "yes",
+          "falseLabel": "no",
+          "id": "active",
+          "label": "Active",
+          "valuesOut": [
+            {
+              "value": "<% self.value %>",
+              "valueOutBinding": "createRestaurant.active"
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "id": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "id": "footerText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  },
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "_generationNote": "Creates a single instance, as specified by of the Restaurant business object resource.",
+        "name": "createRestaurant",
+        "url": "<% `https://api.workday.com/apps/{{site.applicationId}}/v1/restaurants` %>",
+        "authType": "sso",
+        "httpMethod": "POST",
+        "failOnStatusCodes": [
+          {
+            "code": 400
+          },
+          {
+            "code": 403
+          }
+        ]
+      }
+    ],
+    "responseErrorDetail": {
+      "_generationNote": "This responseErrorDetail works with the Workday API error structure.",
+      "_generationNote2": "If there is only a single error, the errorSummary will be shown.",
+      "errorSummary": "<% error %>",
+      "_generationNote3": "For multiple errors, append the top-level error to provide context.",
+      "errors": "<% empty errors ? [] : [error].join(errors.map(err => { err.error } )) %>"
+    }
+  }
+}

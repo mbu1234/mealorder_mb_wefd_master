@@ -1,0 +1,14 @@
+{
+  "id": "getRestaurant",
+  "query": "query getRestaurant($workdayID: ID!) {
+  restaurant: mealorder_mb_wefd_master_pgbbrx_Restaurant(dataSource: {mealorder_mb_wefd_master_pgbbrx_restaurants : {}}, where: {workdayID : {in : {id : $workdayID}}}) {
+    data {
+      active
+      descriptor
+      name
+      type
+    }
+    total
+  }
+}"
+}

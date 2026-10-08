@@ -1,0 +1,102 @@
+{
+  "id": 2,
+  "name": "RestaurantOrder",
+  "label": "Restaurant Order",
+  "defaultSecurityDomains": [
+    "MealOrder"
+  ],
+  "defaultCollection": {
+    "name": "restaurantOrders",
+    "label": "Restaurant Orders"
+  },
+  "fields": [
+    {
+      "id": 1,
+      "name": "restaurant",
+      "type": "SINGLE_INSTANCE",
+      "useForDisplay": false,
+      "isPurgeable": false,
+      "target": "Restaurant",
+      "secureByTarget": false,
+      "enableReportingFromTarget": false
+    },
+    {
+      "id": 2,
+      "name": "createdBy",
+      "type": "SINGLE_INSTANCE",
+      "useForDisplay": false,
+      "isPurgeable": false,
+      "target": "WORKER",
+      "secureByTarget": false,
+      "enableReportingFromTarget": false
+    },
+    {
+      "id": 3,
+      "name": "orderDetails",
+      "type": "TEXT",
+      "isReferenceId": false,
+      "useForDisplay": false,
+      "isPurgeable": false,
+      "enableIndex": false,
+      "enableSearch": false
+    },
+    {
+      "id": 4,
+      "name": "orderAddress",
+      "type": "TEXT",
+      "isReferenceId": false,
+      "useForDisplay": false,
+      "isPurgeable": false,
+      "enableIndex": false,
+      "enableSearch": false
+    },
+    {
+      "id": 5,
+      "name": "deliveryDate",
+      "type": "DATE",
+      "isPurgeable": false,
+      "enableIndex": false,
+      "precision": "DAY"
+    },
+    {
+      "id": 6,
+      "name": "orderMonth",
+      "type": "TEXT",
+      "isReferenceId": false,
+      "useForDisplay": false,
+      "isPurgeable": false,
+      "enableIndex": false,
+      "enableSearch": false,
+      "description": ""
+    },
+    {
+      "id": 7,
+      "name": "orderYear",
+      "type": "TEXT",
+      "isReferenceId": false,
+      "useForDisplay": false,
+      "isPurgeable": false,
+      "enableIndex": false,
+      "enableSearch": false
+    },
+    {
+      "id": 8,
+      "name": "restaurantName",
+      "type": "TEXT",
+      "isReferenceId": false,
+      "useForDisplay": false,
+      "isPurgeable": false,
+      "enableIndex": false,
+      "enableSearch": false
+    },
+    {
+      "id": 9,
+      "name": "deliveryEndDate",
+      "type": "DATE",
+      "description": "Used for a calendar view only",
+      "isPurgeable": false,
+      "enableIndex": false,
+      "precision": "DAY"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "getWorkers",
+  "responseCode": 200,
+  "responseBody": {
+    "data": {
+      "worker": {
+        "total": 1,
+        "data": [
+          {
+            "workdayID": {
+              "id": "id-a0f17ea7-67a9-41c4-8a5a-5ec80d56f215"
+            },
+            "descriptor": "descriptor-6a5715a4-9ec4-444b-bc11-bd6878f6aa93"
+          },
+          {
+            "workdayID": {
+              "id": "id-147b7bcc-dbda-4a0a-9651-e7e885649983"
+            },
+            "descriptor": "descriptor-08f4f478-d0d2-48b9-ad8b-04f6554d06ac"
+          }
+        ]
+      }
+    }
+  }
+}

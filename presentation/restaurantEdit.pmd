@@ -1,0 +1,78 @@
+{
+  "id": "restaurantEdit",
+  "endPoints": [
+    {
+      "name": "getRestaurant",
+      "baseUrlType": "BUSINESS-OBJECT",
+      "url": "<% `/restaurants/{{queryParams.restaurantId}}` %>",
+      "authType": "sso"
+    }
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "patchRestaurant",
+        "url": "<% `https://api.workday.com/apps/{{site.applicationId}}/v1/restaurants/{{queryParams.restaurantId}}` %>",
+        "authType": "sso",
+        "httpMethod": "PATCH",
+        "onSend": "<%
+          {
+            'id' : idWidget.value,
+            'name': nameWidget.value,
+            'type': typeWidget.value,
+            'active': activeWidget.value
+          }
+        %>",
+        "failOnStatusCodes": [
+          {
+            "code": 400
+          }
+        ]
+      }
+    ],
+    "responseErrorDetail": {
+      "errorSummary": "<% errors %>",
+      "errors": "<% errors.map(item => { item.error }); %>"
+    }
+  },
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "<% queryParams.id %>"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "text",
+          "id": "idWidget",
+          "label": "ID",
+          "value": "<% getRestaurant.id %>"
+        },
+        {
+          "type": "text",
+          "id": "nameWidget",
+          "label": "Name",
+          "value": "<% getRestaurant.name %>"
+        },
+        {
+          "type": "text",
+          "id": "typeWidget",
+          "label": "Type",
+          "value": "<% getRestaurant.type %>"
+        },
+        {
+          "value": "<% getRestaurant.active %>",
+          "type": "checkBox",
+          "id": "activeWidget",
+          "label": "Active"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [ ]
+    }
+  }
+}

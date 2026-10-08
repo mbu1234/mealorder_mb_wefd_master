@@ -1,0 +1,100 @@
+{
+  "id": "restaurantOrderCreateConfirm",
+  "endPoints": [
+    {
+      "name": "getWorkerNameForOrder",
+      "baseUrlType": "COMMON",
+      "url": "<% '/workers/' + flowVariables.createdBy %>",
+      "authType": "sso"
+    },
+    {
+      "name": "getRestaurant",
+      "baseUrlType": "BUSINESS-OBJECT",
+      "url": "<% '/restaurants/' + flowVariables.restaurantId %>",
+      "authType": "sso"
+    }
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "postRestaurantOrder",
+        "baseUrlType": "BUSINESS-OBJECT",
+        "url": "/restaurantOrders",
+        "authType": "sso",
+        "httpMethod": "POST",
+        "onSend": "<%
+          {
+            'restaurant': {
+              'id' : flowVariables.restaurantId
+            },
+            'createdBy': {
+              'id': flowVariables.createdBy
+            },
+            'orderDetails': flowVariables.orderDetails,
+            'orderAddress': flowVariables.orderAddress,
+            'deliveryDate': flowVariables.deliveryDate,
+            'orderMonth': flowVariables.orderMonth,
+            'orderYear': flowVariables.orderYear
+          }
+        %>",
+        "failOnStatusCodes" : [
+          {
+            "code": 400
+          }
+        ]
+      }
+    ],
+    "responseErrorDetail": {
+      "errorSummary": "<% error %>",
+      "errors": "<% errors.map(item=>{item.error}) %>"
+    }
+  },
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "Order Confirmation"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "text",
+          "label": "Restaurant Name",
+          "value": "<% getRestaurant.name %>",
+          "enabled": "false"
+        },
+        {
+          "type": "text",
+          "label": "Order for",
+          "value": "<% getWorkerNameForOrder.descriptor %>",
+          "enabled": "false"
+        },
+        {
+          "type": "text",
+          "label": "OrderDetails",
+          "value": "<% flowVariables.orderDetails %>",
+          "enabled": "false"
+        },
+        {
+          "type": "text",
+          "label": "OrderAddress",
+          "value": "<% flowVariables.orderAddress %>",
+          "enabled": "false"
+        },
+        {
+          "type": "text",
+          "label": "OrderAddress",
+          "value": "<% flowVariables.deliveryDate %>",
+          "enabled": "false"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        
+      ]
+    }
+  }
+}

@@ -1,0 +1,354 @@
+{
+  "appProperties": [],
+  "flowDefinitions": [
+    {
+      "id": "restaurantCreateFlow",
+      "flowSteps": [
+        {
+          "id": "restaurantCreateStep",
+          "startsFlow": true,
+          "transitions": [
+            {
+              "order": "a",
+              "value": "restaurantCreateConfirmStep",
+              "condition": "true"
+            }
+          ],
+          "taskId": "restaurantCreate"
+        },
+        {
+          "id": "restaurantCreateConfirmStep",
+          "transitions": [
+            {
+              "order": "a",
+              "value": "restaurantCreateSuccessStep",
+              "condition": "<% true %>"
+            }
+          ],
+          "taskId": "restaurantCreateConfirm"
+        },
+        {
+          "id": "restaurantCreateSuccessStep",
+          "taskId": "restaurantCreateSuccess",
+          "endsFlow": true
+        }
+      ]
+    },
+    {
+      "id": "restaurantOrderCreateFlow",
+      "flowSteps": [
+        {
+          "id": "restaurantOrderCreateStep",
+          "transitions": [
+            {
+              "order": "a",
+              "value": "restaurantOrderForSelfStep",
+              "condition": "<% flowVariables.restaurantOrderType == 'me' %>"
+            },
+            {
+              "order": "b",
+              "value": "restaurantOrderForWorkerStep",
+              "condition": "true"
+            }
+          ],
+          "startsFlow": true,
+          "taskId": "restaurantOrderCreate"
+        },
+        {
+          "id": "restaurantOrderForSelfStep",
+          "transitions": [
+            {
+              "order": "a",
+              "value": "restaurantOrderCreateConfirm",
+              "condition": "true"
+            }
+          ],
+          "taskId": "restaurantOrderCreateForSelf"
+        },
+        {
+          "id": "restaurantOrderForWorkerStep",
+          "transitions": [
+            {
+              "order": "a",
+              "value": "restaurantOrderCreateConfirm",
+              "condition": "true"
+            }
+          ],
+          "taskId": "restaurantOrderCreateForWorker"
+        },
+        {
+          "id": "restaurantOrderCreateConfirm",
+          "transitions": [
+            {
+              "order": "a",
+              "value": "restaurantOrderCreateSuccess",
+              "condition": "true"
+            }
+          ],
+          "taskId": "restaurantOrderCreateConfirm"
+        },
+        {
+          "id": "restaurantOrderCreateSuccess",
+          "endsFlow": true,
+          "taskId": "restaurantOrderCreateSuccess"
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "home",
+      "routingPattern": "/",
+      "page": {
+        "id": "home"
+      }
+    },
+    {
+      "id": "testBasicWidgets",
+      "routingPattern": "/testBasicWidgets",
+      "page": {
+        "id": "testBasicWidgets"
+      }
+    },
+    {
+      "id": "restaurantCreate",
+      "routingPattern": "/restaurantCreate",
+      "page": {
+        "id": "restaurantCreate"
+      }
+    },
+    {
+      "id": "restaurantView",
+      "routingPattern": "/restaurantView",
+      "page": {
+        "id": "restaurantView"
+      }
+    },
+    {
+      "id": "restaurantEdit",
+      "routingPattern": "/restaurantEdit",
+      "page": {
+        "id": "restaurantEdit"
+      }
+    },
+    {
+      "id": "restaurantManage",
+      "routingPattern": "/restaurantManage",
+      "page": {
+        "id": "restaurantManage"
+      }
+    },
+    {
+      "id": "restaurantDelete",
+      "routingPattern": "/restaurantDelete",
+      "page": {
+        "id": "restaurantDelete"
+      }
+    },
+    {
+      "id": "restaurantOrderCreateForSelf",
+      "routingPattern": "/restaurantOrderCreateForSelf",
+      "page": {
+        "id": "restaurantOrderCreateForSelf"
+      }
+    },
+    {
+      "id": "restaurantOrderManage",
+      "routingPattern": "/restaurantOrderManage",
+      "page": {
+        "id": "restaurantOrderManage"
+      }
+    },
+    {
+      "id": "testScripts",
+      "routingPattern": "/testScripts",
+      "page": {
+        "id": "testScripts"
+      }
+    },
+    {
+      "id": "testEvents",
+      "routingPattern": "/testEvents",
+      "page": {
+        "id": "testEvents"
+      }
+    },
+    {
+      "id": "restaurantCreateConfirm",
+      "routingPattern": "/restaurantCreateConfirm",
+      "page": {
+        "id": "restaurantCreateConfirm"
+      }
+    },
+    {
+      "id": "restaurantCreateSuccess",
+      "routingPattern": "/restaurantCreateSuccess",
+      "page": {
+        "id": "restaurantCreateSuccess"
+      }
+    },
+    {
+      "id": "restaurantOrderCreateForWorker",
+      "routingPattern": "/restaurantOrderCreateForWorker",
+      "page": {
+        "id": "restaurantOrderCreateForWorker"
+      }
+    },
+    {
+      "id": "restaurantOrderCreate",
+      "routingPattern": "/restaurantOrderCreate",
+      "page": {
+        "id": "restaurantOrderCreate"
+      }
+    },
+    {
+      "id": "restaurantOfTheMonth",
+      "routingPattern": "/restaurantOfTheMonth",
+      "page": {
+        "id": "restaurantOfTheMonth"
+      }
+    },
+    {
+      "id": "chartExample",
+      "routingPattern": "/chartExample",
+      "page": {
+        "id": "chartExample"
+      }
+    },
+    {
+      "id": "restaurantOrderCreateConfirm",
+      "routingPattern": "/restaurantOrderCreateConfirm",
+      "page": {
+        "id": "restaurantOrderCreateConfirm"
+      }
+    },
+    {
+      "id": "restaurantOrderCreateSuccess",
+      "routingPattern": "/restaurantOrderCreateSuccess",
+      "page": {
+        "id": "restaurantOrderCreateSuccess"
+      }
+    },
+    {
+      "id": "restaurantOrderCreateFromHub",
+      "routingPattern": "/restaurantOrderCreateFromHub",
+      "page": {
+        "id": "restaurantOrderCreateFromHub"
+      }
+    },
+    {
+      "id": "homev2",
+      "routingPattern": "/homev2",
+      "page": {
+        "id": "homev2"
+      }
+    },
+    {
+      "id": "restaurantCreateFromHub",
+      "routingPattern": "/restaurantCreateFromHub",
+      "page": {
+        "id": "restaurantCreateFromHub"
+      }
+    },
+    {
+      "id": "testExpensesManage",
+      "routingPattern": "/testExpensesManage",
+      "page": {
+        "id": "testExpensesManage"
+      }
+    },
+    {
+      "id": "testExpenseView",
+      "routingPattern": "/testExpenseView",
+      "page": {
+        "id": "testExpenseView"
+      }
+    },
+    {
+      "id": "testExpenseEdit",
+      "routingPattern": "/testExpenseEdit",
+      "page": {
+        "id": "testExpenseEdit"
+      }
+    },
+    {
+      "id": "restaurantsViewGraph",
+      "routingPattern": "/restaurantsViewGraph",
+      "page": {
+        "id": "restaurantsViewGraph"
+      }
+    },
+    {
+      "id": "restaurantViewRouteParams",
+      "routingPattern": "/restaurantViewRouteParams/{restaurantId}",
+      "page": {
+        "id": "restaurantViewRouteParams"
+      }
+    },
+    {
+      "id": "calendarExample",
+      "routingPattern": "/calendarExample",
+      "page": {
+        "id": "calendarExample"
+      }
+    },
+    {
+      "id": "restaurantOrderEdit",
+      "routingPattern": "/restaurantOrderEdit",
+      "page": {
+        "id": "restaurantOrderEdit"
+      }
+    },
+    {
+      "id": "currentUserView",
+      "routingPattern": "/currentUserView",
+      "page": {
+        "id": "currentUserView"
+      }
+    },
+    {
+      "id": "createRestaurantOrder",
+      "routingPattern": "/createRestaurantOrder",
+      "page": {
+        "id": "createRestaurantOrder"
+      }
+    },
+    {
+      "id": "MealOrderAppCard",
+      "routingPattern": "/MealOrderAppCard",
+      "page": {
+        "id": "MealOrderAppCard"
+      }
+    },
+    {
+      "id": "createRestaurantTBD",
+      "routingPattern": "/createRestaurantTBD",
+      "page": {
+        "id": "createRestaurantTBD"
+      }
+    },
+    {
+      "id": "manageRestaurantTBD",
+      "routingPattern": "/manageRestaurantTBD",
+      "page": {
+        "id": "manageRestaurantTBD"
+      }
+    }
+  ],
+  "applicationId": "mealorder_mb_wefd_master_pgbbrx",
+  "dataProviders": [
+    {
+      "key": "BUSINESS-OBJECT",
+      "_value": "<% 'https://api.workday.com/apps/' + site.applicationId + '/v1' %>",
+      "value": "<% `https://api.workday.com/apps/{{site.applicationId}}/v1` %>"
+    },
+    {
+      "key": "COMMON",
+      "value": "https://api.workday.com/common/v1"
+    },
+    {
+      "key": "WQL",
+      "value": "https://api.workday.com/wql/v1"
+    }
+  ]
+}

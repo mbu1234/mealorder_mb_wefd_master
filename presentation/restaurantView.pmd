@@ -1,0 +1,44 @@
+{
+  "id": "restaurantView",
+  "endPoints": [
+    {
+      "name": "getRestaurant",
+      "baseUrlType": "BUSINESS-OBJECT",
+      "url": "<%  `/restaurants/{{queryParams.restaurantId}}` %>",
+      "authType": "sso"
+    }
+  ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "<% getRestaurant.name %>"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "text",
+          "label": "Name",
+          "value": "<% getRestaurant.name %>"
+        },
+        {
+          "type": "text",
+          "label": "Type",
+          "value": "<% getRestaurant.type %>"
+        },
+        {
+          "type": "text",
+          "label": "Active",
+          "value": "<% getRestaurant.active %>"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        
+      ]
+    }
+  }
+}

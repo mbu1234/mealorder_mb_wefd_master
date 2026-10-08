@@ -1,0 +1,92 @@
+{
+  "id": "restaurantOrderCreateForWorker",
+  "include": [
+    "customValidations.script"
+  ],
+  "endPoints": [
+
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "restaurantCreateVars",
+        "type": "outboundVariable",
+        "variableScope": "flow",
+        "values": [
+          {
+            "outboundPath": "restaurantId",
+            "value": "<% restaurantsWidget.value[0] %>"
+          },
+          {
+            "outboundPath": "createdBy",
+            "value": "<% workersTextWidget.value %>"
+          },
+          {
+            "outboundPath": "orderDetails",
+            "value": "<% orderDetailsWidget.value %>"
+          },
+          {
+            "outboundPath": "orderAddress",
+            "value": "<% orderAddressWidget.value %>"
+          },
+          {
+            "outboundPath": "deliveryDate",
+            "value": "<% deliveryDateWidget.value.format('yyyy-MM-dd') %>"
+          },
+          {
+            "outboundPath": "orderMonth",
+            "value": "<% monthDisplayWidget.value=deliveryDateWidget.value.format('MMM') %>"
+          },
+          {
+            "outboundPath": "orderYear",
+            "value": "<% yearDisplayWidget.value=deliveryDateWidget.value.format('YYYY') %>"
+          }
+        ]
+      }
+    ],
+    "responseErrorDetail": {
+      "errorSummary": "<% error %>",
+      "errors": "<% errors.map(item => { item.error }) %>"
+    }
+  },
+  "presentation": {
+    "pageType": "edit",
+    "title": {
+      "type": "title",
+      "label": "Create an Order"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        
+        {
+          "type": "pageActionButton",
+          "label": "Select another user",
+          "visible": "<% !empty flowVariables.createdBy ? true : false %>",
+          "onClick": "<% 
+            workersTextWidgetSection.visible = false;
+            workersInstanceListWidgetSection.visible = true;
+          %>"
+        },
+        {
+          "type": "pod",
+          "podId": "restaurantOrder",
+          "parameters": {
+            "showWorkerSelect": "<% true %>"
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}

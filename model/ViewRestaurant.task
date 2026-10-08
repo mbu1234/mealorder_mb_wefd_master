@@ -1,0 +1,11 @@
+{
+  "id": 2,
+  "name": "ViewRestaurant",
+  "label": "View Restaurant",
+  "securityDomains": [
+    "MealOrder"
+  ],
+  "routePath": "/restaurantView?restaurantId={taskObjectId}",
+  "businessObject": "Restaurant",
+  "secured": false
+}

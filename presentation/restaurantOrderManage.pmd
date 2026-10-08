@@ -1,0 +1,122 @@
+{
+  "id": "restaurantOrderManage",
+  "endPoints": [
+    {
+      "name": "getRestaurants",
+      "baseUrlType": "BUSINESS-OBJECT",
+      "url": "/restaurants",
+      "authType": "sso"
+    },
+    {
+      "name": "getRestaurantOrders",
+      "baseUrlType": "WQL",
+      "url": "<%
+        const dataSource = `{{site.applicationId}}_restaurantOrders`;
+        const queryString = `SELECT createdBy, orderDetails, orderAddress, deliveryDate, restaurant{name, type, workdayID} as restaurant FROM {{dataSource}}`;
+        const url = `/data?query={{string:pathEncode(queryString)}}`;
+        url;
+       %>",
+      "authType": "sso",
+      "isCollection": true
+    }
+  ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "Restaurant Orders"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "instanceList",
+          "label": "instanceList with widKey for related actions",
+          "id": "instanceListWithWidkey",
+          "values": "<% getRestaurants.data %>",
+          "widKey": "id"
+        },
+        {
+          "type": "grid",
+         "rows": "<% list:sort(getRestaurantOrders.data, (a,b) => {
+                      // Ascending
+                      
+                      // 1. Compare by name (Primary Sort)
+                      if (a.restaurant.name < b.restaurant.name) return -1;
+                      if (a.restaurant.name > b.restaurant.name) return 1;
+
+                      // 2. If names are equal, compare by date (Secondary Sort)
+                      if (a.deliveryDate < b.deliveryDate) return -1;
+                      if (a.deliveryDate > b.deliveryDate) return 1;
+
+                      return 0; // both are equal
+
+              }) %>",
+          "rowVariableName": "restaurantOrder",
+          "columns": [
+            {
+              "type": "column",
+              "columnId": "createdByCol",
+              "label": "Name",
+              "cellTemplate": {
+                "type": "instanceList",
+                "instanceList": [
+                  {
+                    "wid": "<% restaurantOrder.createdBy.id %>",
+                    "descriptor": "<% restaurantOrder.createdBy.descriptor %>"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "orderDetailsCol",
+              "label": "Order Details",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% restaurantOrder.orderDetails %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "orderAddressCol",
+              "label": "Order Address",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% restaurantOrder.orderAddress %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "deliveryDateCol",
+              "label": "Delivery Date",
+              "cellTemplate": {
+                "type": "date",
+                "value": "<% restaurantOrder.deliveryDate %>"
+              }
+            },
+            {
+              "type": "column",
+              "columnId": "restaurantCol",
+              "label": "restaurant",
+              "cellTemplate": {
+                "type": "instanceList",
+                "view": false,
+                "instanceList": [
+                  {
+                    "wid": "<% restaurantOrder.restaurant.workdayID %>",
+                    "descriptor": "<% restaurantOrder.restaurant.name %>"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [ ]
+    }
+  }
+}

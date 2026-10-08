@@ -1,0 +1,28 @@
+{
+  "id": "createRestaurantOrder",
+  "responseCode": 200,
+  "responseBody": {
+    "data": {
+      "mealorder_mb_wefd_master_pgbbrx_createRestaurantOrder": {
+        "createdBy": {
+          "descriptor": "descriptor-ec17e430-fe95-4926-9b1d-00f3cdb27e7f"
+        },
+        "deliveryDate": "2023-01-01T01:01:01Z",
+        "deliveryEndDate": "2023-01-01T01:01:01Z",
+        "descriptor": "descriptor-39d5ea35-805a-45d9-8e6a-6aff58052e7b",
+        "orderAddress": "orderAddress",
+        "orderDetails": "orderDetails",
+        "orderMonth": "orderMonth",
+        "orderYear": "orderYear",
+        "restaurant": {
+          "descriptor": "descriptor-6d89790f-4a77-4431-ba4c-9a6dad5e510b"
+        },
+        "restaurantName": "restaurantName",
+        "workdayID": {
+          "id": "id-f429401f-11a9-4b20-9d41-f6bf5f933d1a",
+          "type": "type"
+        }
+      }
+    }
+  }
+}
